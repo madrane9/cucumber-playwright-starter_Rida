@@ -7,28 +7,42 @@ Given('ein Taschenrechner', async function (this: ICustomWorld) {
   await page?.goto('https://testsheepnz.github.io/BasicCalculator.html');
 });
 
-When('ich als erste Zahl drei eingebe', async function (this: ICustomWorld) {
-  const page = this.page!;
-  await page.locator('input#number1Field').type('3');
+Given(
+  'die addierten Zahlen {} und {}',
+  async function (this: ICustomWorld, firstNumber: string, secondNumber: string) {
+    const calculator = this.calculator!;
+    await calculator.setFirstNumber(firstNumber);
+    await calculator.setSecondNumber(secondNumber);
+    await calculator.selectOperation('Addition');
+    await calculator.calculateResult();
+  },
+);
+
+When('ich als erste Zahl {} eingebe', async function (this: ICustomWorld, firstNumber: string) {
+  await this.calculator?.setFirstNumber(firstNumber);
 });
 
-When('ich als zweite Zahl vier eingebe', async function (this: ICustomWorld) {
-  const page = this.page!;
-  await page.locator('input#number2Field').type('4');
+When('ich als zweite Zahl {} eingebe', async function (this: ICustomWorld, secondNumber: string) {
+  await this.calculator?.setSecondNumber(secondNumber);
 });
 
 When('ich Addition als Operation auswähle', async function (this: ICustomWorld) {
-  const page = this.page!;
-  await page.locator('select#selectOperationDropdown').selectOption('0');
+  await this.calculator?.selectOperation('Addition');
+});
+
+When('ich Subtraktion als Operation auswähle', async function (this: ICustomWorld) {
+  await this.calculator?.selectOperation('Subtraktion');
 });
 
 When('ich das Ergebnis berechne', async function (this: ICustomWorld) {
-  const page = this.page!;
-  await page.locator('input#calculateButton').click();
+  await this.calculator?.calculateResult();
 });
 
-Then('erwarte ich sieben als Ergebnis', async function (this: ICustomWorld) {
-  const page = this.page!;
-  const actualText = await page.locator('#numberAnswerField').inputValue();
-  expect(actualText).toEqual('7');
+When('ich das Ergebnis runde', async function (this: ICustomWorld) {
+  await this.calculator?.RoundResult();
+});
+
+Then('erwarte ich {} als Ergebnis', async function (this: ICustomWorld, expectedResult: string) {
+  const actualText = await this.calculator?.getResult();
+  expect(actualText).toEqual(expectedResult);
 });
