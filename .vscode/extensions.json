@@ -1,15 +1,21 @@
 {
-	// See http://go.microsoft.com/fwlink/?LinkId=827846
-	// for the documentation about the extensions.json format
+	// Weitere Informationen https://go.microsoft.com/fwlink/?LinkId=827846
 	"recommendations": [
-		// Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
+		// Nur eine der beiden Cucumber Extensions sollte verwendet werden
+		"alexkrechik.cucumberautocomplete",
+		"CucumberOpen.cucumber-official",
+		// Playwright Support
+		"ms-playwright.playwright",
+		// Styling support für den Code
 		"esbenp.prettier-vscode",
 		"dbaeumer.vscode-eslint",
-		"oderwat.indent-rainbow",
-		"coenraads.bracket-pair-colorizer-2",
-		"wmaurer.change-case",
-		"alexkrechik.cucumberautocomplete",
-		"oouo-diogo-perdigao.docthis",
-		"eamodio.gitlens"
-	]
+		// Markdown Support
+		"yzhang.markdown-all-in-one",
+		"DavidAnson.vscode-markdownlint",
+		// Git Support
+		"eamodio.gitlens",
+		"codezombiech.gitignore",
+		"donjayamanne.githistory",
+		"mhutchie.git-graph"
+	],
 }
