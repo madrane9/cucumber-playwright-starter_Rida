@@ -1,7 +1,13 @@
 import { Calculator } from '../pages/calculator';
 import { setWorldConstructor, World, IWorldOptions } from '@cucumber/cucumber';
 import * as messages from '@cucumber/messages';
-import { BrowserContext, Page, PlaywrightTestOptions, APIRequestContext } from '@playwright/test';
+import {
+  BrowserContext,
+  Page,
+  PlaywrightTestOptions,
+  APIRequestContext,
+  APIResponse,
+} from '@playwright/test';
 
 export interface CucumberWorldConstructorParams {
   parameters: { [key: string]: string };
@@ -17,7 +23,10 @@ export interface ICustomWorld extends World {
   testName?: string;
   startTime?: Date;
 
-  server?: APIRequestContext;
+  requestContext?: APIRequestContext;
+  requestPath?: string;
+  requestParams?: { [key: string]: string | boolean | number };
+  requestResponse?: APIResponse;
 
   playwrightOptions?: PlaywrightTestOptions;
 }
