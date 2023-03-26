@@ -1,5 +1,6 @@
 import { ICustomWorld } from './custom-world';
 import { config } from './config';
+import { Calculator } from '../pages/calculator';
 import { Before, After, BeforeAll, AfterAll, Status, setDefaultTimeout } from '@cucumber/cucumber';
 import {
   chromium,
@@ -63,6 +64,7 @@ Before(async function (this: ICustomWorld, { pickle }: ITestCaseHookParameter) {
 
   await this.context.tracing.start({ screenshots: true, snapshots: true });
   this.page = await this.context.newPage();
+  this.calculator = new Calculator(this.page);
   this.page.on('console', async (msg: ConsoleMessage) => {
     if (msg.type() === 'log') {
       await this.attach(msg.text());
@@ -77,13 +79,12 @@ After(async function (this: ICustomWorld, { result }: ITestCaseHookParameter) {
 
     if (result.status !== Status.PASSED) {
       const image = await this.page?.screenshot();
-
-      // Replace : with _ because colons aren't allowed in Windows paths
-      const timePart = this.startTime?.toISOString().split('.')[0].replaceAll(':', '_');
-
       image && (await this.attach(image, 'image/png'));
+      const traceFileName = `${this.testName}-${
+        this.startTime?.toISOString().replaceAll(':', '-').split('.')[0]
+      }`;
       await this.context?.tracing.stop({
-        path: `${tracesDir}/${this.testName}-${timePart}trace.zip`,
+        path: `${tracesDir}/${traceFileName}-trace.zip`,
       });
     }
   }
