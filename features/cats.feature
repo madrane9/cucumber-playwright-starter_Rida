@@ -14,3 +14,10 @@ Dann erwarte ich 2 Fakten über Katzen
 Szenario: Kurze Ermittlung von mehreren Katzen Fakten
 Wenn ich nach 2 Katzen-Fakten frage
 Dann erwarte ich 2 Fakten über Katzen
+
+@sec
+Szenario: Setzen sicherheitsrelevanter Header
+Wenn ich nach 2 Katzen-Fakten frage
+Dann erwarte ich "application/json" als content-type in der API-Antwort
+Und erwarte ich einen sicheren x-frame-options Header in der API-Antwort
+Und erwarte ich keine Server-Details in der API-Antwort
