@@ -10,3 +10,7 @@ Gegeben sei ein Request an die Katzen-Fakten-API
 Wenn ich als limit Parameter 2 setze
 Und ich den Request absende
 Dann erwarte ich 2 Fakten über Katzen
+
+Szenario: Kurze Ermittlung von mehreren Katzen Fakten
+Wenn ich nach 2 Katzen-Fakten frage
+Dann erwarte ich 2 Fakten über Katzen
