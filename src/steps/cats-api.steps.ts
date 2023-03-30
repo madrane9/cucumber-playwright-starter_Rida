@@ -19,6 +19,8 @@ Then(
   'erwarte ich {int} Fakten über Katzen',
   async function (this: ICustomWorld, expectedResultCount: number) {
     const buffer = await this.requestResponse?.body();
+    //Anschließend wird der Puffer in ein JavaScript-Objekt umgewandelt, indem die "JSON.parse()" Methode aufgerufen wird
+    //Das "!"-Symbol wird verwendet, um dem TypeScript-Compiler zu sagen, dass der Wert nicht null oder undefined ist, obwohl dies theoretisch möglich wäre.
     const result = JSON.parse(buffer!.toString());
     expect(result.data.length).toEqual(expectedResultCount);
     // console.log(result.data);

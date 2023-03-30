@@ -21,3 +21,9 @@ Wenn ich nach 2 Katzen-Fakten frage
 Dann erwarte ich "application/json" als content-type in der API-Antwort
 Und erwarte ich einen sicheren x-frame-options Header in der API-Antwort
 Und erwarte ich keine Server-Details in der API-Antwort
+# Und erwarte ich einen sicheren cache-control Header in der API-Antwort
+# Und erwarte ich einen sicheren content-security-policy Header in der API-Antwort
+# Und erwarte ich einen sicheren strict-transport-security Header in der API-Antwort
+# Und erwarte ich einen sicheren feature-policy Header in der API-Antwort
+# Und erwarte ich einen sicheren referrer-policy Header in der API-Antwort
+# Und erwarte ich einen sicheren x-content-type-option Header in der API-Antwort
