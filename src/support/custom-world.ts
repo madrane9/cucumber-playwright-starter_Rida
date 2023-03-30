@@ -7,6 +7,7 @@ import {
   PlaywrightTestOptions,
   APIRequestContext,
   APIResponse,
+  Response,
 } from '@playwright/test';
 
 export interface CucumberWorldConstructorParams {
@@ -24,6 +25,7 @@ export interface ICustomWorld extends World {
   startTime?: Date;
 
   requestContext?: APIRequestContext;
+  tracedResponses?: Response[];
   requestPath?: string;
   requestParams?: { [key: string]: string | boolean | number };
   requestResponse?: APIResponse;

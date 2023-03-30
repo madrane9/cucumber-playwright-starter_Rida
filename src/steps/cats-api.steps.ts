@@ -18,6 +18,7 @@ When('ich nach {} Katzen-Fakten frage', async function (this: ICustomWorld, limi
 Then(
   'erwarte ich {int} Fakten über Katzen',
   async function (this: ICustomWorld, expectedResultCount: number) {
+    //"this: ICustomWorld", was bedeutet, dass die Funktion eine Referenz auf ein benutzerdefiniertes Objekt namens "ICustomWorld" erhält. Das "ICustomWorld"-Objekt kann von anderen Schrittdefinitionen verwendet werden, um Informationen zwischen verschiedenen Schritten im Test auszutauschen.
     const buffer = await this.requestResponse?.body();
     //Anschließend wird der Puffer in ein JavaScript-Objekt umgewandelt, indem die "JSON.parse()" Methode aufgerufen wird
     //Das "!"-Symbol wird verwendet, um dem TypeScript-Compiler zu sagen, dass der Wert nicht null oder undefined ist, obwohl dies theoretisch möglich wäre.

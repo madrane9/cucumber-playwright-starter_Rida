@@ -31,7 +31,7 @@ Then('erwarte ich keine Server-Details in der API-Antwort', async function (this
     expect(serverHeader).toBeUndefined();
     return;
   }
-  expect(serverHeader.toLowerCase()).not.toMatch(/^nginx$|^tomcat$/);
+  expect(serverHeader.toLowerCase()).not.toMatch(/nginx|tomcat/);
 });
 Then(
   'erwarte ich einen sicheren cache-control Header in der API-Antwort',

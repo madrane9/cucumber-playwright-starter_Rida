@@ -36,3 +36,11 @@ Szenario: Nach einer Berechnung erwarte ich valides HTML
 Gegeben seien die addierten Zahlen 5 und 5
 Wenn ich das Ergebnis runde
 Dann erwarte ich valides HTML auf dieser Seite
+
+@sec
+Szenario: Kontrolle der korrekten Header des Taschenrechners
+Gegeben sei ein aktives Monitoring der HTTP-Requests des Browsers
+Wenn ich den Taschenrechner öffne
+Dann erwarte ich einen sicheren access-control-allow-origin Header der Web-Page
+# Und erwarte ich einen gesetzten content-security-policy Header der Web-Page
+# Und erwarte ich einen sicheren x-frame-options Header der Web-Page
