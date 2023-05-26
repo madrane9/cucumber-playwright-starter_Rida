@@ -1,7 +1,7 @@
 import { ICustomWorld } from './custom-world';
 import { config } from './config';
 import { Calculator } from '../pages/calculator';
-import { NachzahlungÜbersicht } from '../pages/nachzahlungübersicht';
+import { LoginPage } from '../pages/loginpage';
 import { Before, After, BeforeAll, AfterAll, Status, setDefaultTimeout } from '@cucumber/cucumber';
 import {
   chromium,
@@ -15,6 +15,7 @@ import {
 } from '@playwright/test';
 import { ITestCaseHookParameter } from '@cucumber/cucumber/lib/support_code_library_builder/types';
 import { ensureDir } from 'fs-extra';
+import { promises as fs } from 'fs'; // Import fs for reading the storage state
 
 let browser: ChromiumBrowser | FirefoxBrowser | WebKitBrowser;
 const tracesDir = 'traces';
@@ -52,8 +53,18 @@ Before({ tags: '@debug' }, async function (this: ICustomWorld) {
 Before(async function (this: ICustomWorld, { pickle }: ITestCaseHookParameter) {
   this.startTime = new Date();
   this.testName = pickle.name.replace(/\W/g, '-');
+
+  // Load the storage state from the file
+  const storageState = JSON.parse(
+    await fs.readFile(
+      'C:/Users/Client/cucumber-playwright-starter_Rida/src/support/auth/user.json',
+      'utf-8',
+    ),
+  );
+
   // customize the [browser context](https://playwright.dev/docs/next/api/class-browser#browsernewcontextoptions)
   this.context = await browser.newContext({
+    storageState, // use the storageState here
     acceptDownloads: true,
     recordVideo: process.env.PWVIDEO ? { dir: 'screenshots' } : undefined,
     viewport: { width: 1200, height: 800 },
@@ -65,8 +76,8 @@ Before(async function (this: ICustomWorld, { pickle }: ITestCaseHookParameter) {
 
   await this.context.tracing.start({ screenshots: true, snapshots: true });
   this.page = await this.context.newPage();
+  this.loginPage = new LoginPage(this.page);
   this.calculator = new Calculator(this.page);
-  this.nachzahlungsübersicht = new NachzahlungÜbersicht(this.page);
   this.page.on('console', async (msg: ConsoleMessage) => {
     if (msg.type() === 'log') {
       await this.attach(msg.text());
