@@ -16,8 +16,8 @@ import {
 import { ITestCaseHookParameter } from '@cucumber/cucumber/lib/support_code_library_builder/types';
 import { ensureDir } from 'fs-extra';
 import { promises as fs } from 'fs'; // Import fs for reading the storage state
+export let browser: ChromiumBrowser | FirefoxBrowser | WebKitBrowser;
 
-let browser: ChromiumBrowser | FirefoxBrowser | WebKitBrowser;
 const tracesDir = 'traces';
 
 declare global {
